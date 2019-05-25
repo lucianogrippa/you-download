@@ -28,3 +28,17 @@ footer {
 .max-height{
   min-height: 100%;
 }
+.card-body{
+  overflow: auto;
+}
+tr{
+  min-height: 25px;
+  height: 25px;
+}
+ tr .rowplaylist::hover{
+   background-color: #d2d2d2;
+ }
+
+ tr .active{
+  background-color: #96969637;
+ }

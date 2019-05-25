@@ -13,6 +13,7 @@ class PlayListForm extends BrowserWindow {
     }) {
         super(options);
         this.playlistPath = "";
+        this.debug=false;
         this.loadFile("views/playlistplayer.html");
 
         ipcMain.on("request-playlist-path",(event,arg)=>{
@@ -28,6 +29,13 @@ class PlayListForm extends BrowserWindow {
 
     getPlaylitPath(){
         return this.playlistPath;
+    }
+
+    setDebug(_d){
+        this.debug = _d;
+    }
+    openDevTools() {
+        this.webContents.openDevTools();
     }
 }
 module.exports = {

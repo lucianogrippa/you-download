@@ -46,14 +46,9 @@ class MainController {
 
     let playerContainer = document.querySelector("#" + this.options.playerContainer);
     if (playerContainer) {
-      let vars = [{
-        "origin": "https://youtube.com",
-
-      }];
       let id = playerContainer.id;
       this.player = new YTPlayer(id, {
-        videoId: 'M7lc1UVf-VE',
-        playerVars: vars
+        videoId: 'M7lc1UVf-VE'
       });
     }
     /// default cartella musica

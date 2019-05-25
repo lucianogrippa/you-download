@@ -72,9 +72,16 @@ ipcMain.on('open-playlist-async', (event, arg, data) => {
   // apri solo se null
   if (playListWnd == null) {
     playListWnd = new PlayListForm();
+    playListWnd.setDebug(debug);
     playListWnd.setPlaylistPath(arg);
     playListWnd.on('closed', function () {
       playListWnd = null;
+    });
+
+    playListWnd.on('show', function () {
+      if(debug){
+        playListWnd.openDevTools();
+      }
     });
   }
   //event.reply('open-playlist-async-reply', 'pong');
