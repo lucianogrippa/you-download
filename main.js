@@ -18,6 +18,13 @@ const fs = require('fs');
 // const log = require('electron-log');
 const dialog = app.dialog;
 const homeDir = require("os").homedir();
+const url = require('url');
+
+const iconUrl = url.format({
+  pathname: path.join(__dirname, 'Icon.icns'),
+  protocol: 'file:',
+  slashes: true
+});
 
 let logPath = path.join(homeDir, 'Documents');
 if (!fs.existsSync(logPath)) {
@@ -40,7 +47,14 @@ let playListWnd;
  * Crea il form principale
  */
 function createMainForm() {
-  mainWindow = new MainForm();
+  mainWindow = new MainForm({
+    width: 800,
+    height: 600,
+    icon: iconUrl,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
@@ -69,22 +83,58 @@ app.on('activate', function () {
 /// imposta il menu
 var template = [{
   label: "You Download",
-  submenu: [
-      { label: "About You Download", selector: "orderFrontStandardAboutPanel:" },
-      { type: "separator" },
-      { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
-  ]}, {
+  submenu: [{
+      label: "About You Download",
+      selector: "orderFrontStandardAboutPanel:"
+    },
+    {
+      type: "separator"
+    },
+    {
+      label: "Quit",
+      accelerator: "Command+Q",
+      click: function () {
+        app.quit();
+      }
+    }
+  ]
+}, {
   label: "Edit",
-  submenu: [
-      { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
-      { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
-      { type: "separator" },
-      { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
-      { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
-      { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
-      { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
-  ]}
-];
+  submenu: [{
+      label: "Undo",
+      accelerator: "CmdOrCtrl+Z",
+      selector: "undo:"
+    },
+    {
+      label: "Redo",
+      accelerator: "Shift+CmdOrCtrl+Z",
+      selector: "redo:"
+    },
+    {
+      type: "separator"
+    },
+    {
+      label: "Cut",
+      accelerator: "CmdOrCtrl+X",
+      selector: "cut:"
+    },
+    {
+      label: "Copy",
+      accelerator: "CmdOrCtrl+C",
+      selector: "copy:"
+    },
+    {
+      label: "Paste",
+      accelerator: "CmdOrCtrl+V",
+      selector: "paste:"
+    },
+    {
+      label: "Select All",
+      accelerator: "CmdOrCtrl+A",
+      selector: "selectAll:"
+    }
+  ]
+}];
 
 Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 //app.dock.setMenu(menu);
@@ -100,7 +150,14 @@ ipcMain.on('change-playlist-async', (event, arg) => {
 ipcMain.on('open-playlist-async', (event, arg) => {
   // apri solo se null
   if (playListWnd == null) {
-    playListWnd = new PlayListForm();
+    playListWnd = new PlayListForm({
+      width: 800,
+      height: 600,
+      icon: iconUrl,
+      webPreferences: {
+        nodeIntegration: true
+      }
+    });
     playListWnd.setDebug(debug);
     playListWnd.setPlaylistPath(arg);
     playListWnd.on('closed', function () {
@@ -118,7 +175,7 @@ ipcMain.on('open-playlist-async', (event, arg) => {
     });
 
     playListWnd.on('focus', function () {
-     // playListWnd.refreshItems();
+      // playListWnd.refreshItems();
     });
   }
   //event.reply('open-playlist-async-reply', 'pong');

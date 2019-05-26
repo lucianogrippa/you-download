@@ -4,13 +4,7 @@ const {
 } = require("electron");
 
 class PlayListForm extends BrowserWindow {
-    constructor(options = {
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true
-        }
-    }) {
+    constructor(options) {
         super(options);
         this.playlistPath = "";
         this.debug=false;
