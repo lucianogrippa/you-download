@@ -2,7 +2,6 @@ const debug = false;
 // Modules to control application life and create native browser window
 const {
   Menu,
-  MenuItem,
   app,
   ipcMain
 } = require('electron');

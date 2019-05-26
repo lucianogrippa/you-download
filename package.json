@@ -1,6 +1,6 @@
 {
   "name": "you-download",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Download video from youtube and converts in differtents formats",
   "main": "main.js",
   "scripts": {
@@ -37,6 +37,7 @@
     "electron-log": "^3.0.5",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
+    "glyphicons-only-bootstrap": "^1.0.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "youtube-dl-ffmpeg-ffprobe-static": "^1.2.1",

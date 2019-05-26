@@ -35,9 +35,9 @@ $(document).ready(() => {
     ipcRenderer.send("request-playlist-path", "path");
     $("#btnNext").on("click", next);
     $("#btnPrev").on("click", prev);
-    ipcRenderer.on("refresh-items", (events,args) => {
+    ipcRenderer.on("refresh-items", (events, args) => {
         console.log(args);
-        filePlaylistPath=args;
+        filePlaylistPath = args;
         loadFilesInDir();
     });
 });
@@ -46,7 +46,8 @@ function loadSrc(firstMedia) {
     if (!!firstMedia) {
         player.setAttribute("src", firstMedia.path);
         $("#txtFileName").html(firstMedia.name);
-        $("#videoTitle").html(formatTitle(firstMedia.name));
+        let type = firstMedia.name.endsWith(".mp4") ? "video" : "audio";
+        $("#videoTitle").html(formatTitle(firstMedia.name) + "   (" + type + " " + getExt(firstMedia.name) + ")");
         player.load();
         player.play().then(() => {
                 currentPlay = firstMedia;
@@ -61,7 +62,7 @@ function loadSrc(firstMedia) {
 function buldPlaylistView(playlist) {
     if ($(".prows").length > 0)
         $(".table-playlist .prows").remove();
-        
+
     if (!!playlist && playlist.length > 0) {
         let tbody = $(".table-playlist");
         for (let i = 0; i < playlist.length; i++) {
@@ -72,14 +73,18 @@ function buldPlaylistView(playlist) {
             let pname = $("<div />");
             pname.addClass("col");
             pname.addClass("rowplaylist");
-            if (i == 0) {
+            if (!currentPlay && i == 0) {
                 pname.addClass("active");
+            } else if (!!currentPlay && currentPlay.path === itm.path) {
+                pname.addClass("active");
+                currentPlay.index = i;
             }
             pname.attr("id", "itm_" + itm.index);
             pname.data("itmpath", itm.path);
             pname.data("itmname", itm.name);
             pname.data("itmindex", itm.index);
-            pname.html(itm.name);
+            pname.attr("title", itm.name);
+            pname.html(formatTitle(itm.name));
 
             pname.on("click", function (event) {
                 let data = $(this);
@@ -92,7 +97,44 @@ function buldPlaylistView(playlist) {
                 data.addClass("active");
             });
             row.append(pname);
+            // crea gli span per l'action di eliminazione
+            let delSpan = $("<span />");
+            delSpan.addClass("glyphicon");
+            delSpan.addClass("glyphicon-trash");
 
+            delSpan.attr("role", "action");
+
+            let btnDelete = $("<a />");
+            btnDelete.addClass("btn");
+            btnDelete.addClass("btn-sm");
+            btnDelete.addClass("btn-default");
+            btnDelete.data("path", itm.path);
+            btnDelete.addClass("delIcon");
+            btnDelete.html("");
+            btnDelete.append(delSpan);
+
+            btnDelete.on("click", function (event) {
+                let path = $(this).data("path");
+
+                let conf = confirm("Sei sicuro di voler eliminare " + path + "?");
+                if (conf) {
+                    try {
+                        if (fs.existsSync(path)) {
+                            fs.unlinkSync(path);
+                        }
+                        if (currentPlay.path === path) {
+                            currentPlay = null;
+                        }
+                        alert("file " + path + " eliminato !!");
+                    } catch (e) {
+                        alert("errore nell'eliminare il file " + path);
+                        Log.error(e);
+                    }
+                    loadFilesInDir();
+                }
+            });
+
+            pname.prepend(btnDelete);
             tbody.append(row);
         }
     }
@@ -155,21 +197,29 @@ function formatDuration(duration) {
 function formatTitle(title) {
     let t = title;
     t = title.substring(0, t.lastIndexOf('.'));
-    t = t.replace("_", " ");
+    t = t.replace(/\_/ig, " ");
 
     return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
+function getExt(file) {
+    let t = file;
+    t = t.substring(t.lastIndexOf('.') + 1);
+
+    return t.toUpperCase();
+}
+
 function loadFilesInDir() {
     var files = fs.readdirSync(filePlaylistPath);
-    playmediaList=[];
+    setDirNameTitle(filePlaylistPath);
+    playmediaList = [];
     if (!!files && files.length > 0) {
         let firstMedia = "";
         let playIndex = 0;
         for (let i = 0; i < files.length; i++) {
             let itm = files[i];
             if (itm.endsWith(".mp3") || itm.endsWith(".mp4") || itm.endsWith(".m4a") || itm.endsWith(".aac")) {
-                if (!firstMedia && currentPlay==null) {
+                if (!firstMedia && currentPlay == null) {
                     firstMedia = {
                         path: path.join(filePlaylistPath, itm),
                         name: itm,
@@ -178,6 +228,12 @@ function loadFilesInDir() {
                     playmediaList.push(firstMedia);
                     playIndex++;
                     continue;
+                } else if (!!currentPlay && currentPlay.name === itm) {
+                    currentPlay = {
+                        path: path.join(filePlaylistPath, itm),
+                        name: itm,
+                        index: playIndex
+                    };
                 }
                 // add media to cgrid
                 playmediaList.push({
@@ -191,4 +247,11 @@ function loadFilesInDir() {
         buldPlaylistView(playmediaList);
         loadSrc(firstMedia);
     }
+}
+
+function setDirNameTitle(dirName) {
+    let dName = dirName;
+    dName = dirName.substring(dirName.lastIndexOf("/")+1);
+    $("#dirNameTitle").html(dName);
+    return dName.charAt(0).toUpperCase().slice(1);
 }
