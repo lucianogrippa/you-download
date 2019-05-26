@@ -15,7 +15,8 @@ class PlayListForm extends BrowserWindow {
         this.playlistPath = "";
         this.debug=false;
         this.loadFile("views/playlistplayer.html");
-
+        this.setMenuBarVisibility(false);
+        this.setMenu(null);
         ipcMain.on("request-playlist-path",(event,arg)=>{
             console.log("recived equest-playlist-path");
             console.log(arg);
@@ -36,6 +37,10 @@ class PlayListForm extends BrowserWindow {
     }
     openDevTools() {
         this.webContents.openDevTools();
+    }
+    refreshItems(){
+        console.log("in refreshItems");
+        this.webContents.send("refresh-items",this.playlistPath);
     }
 }
 module.exports = {

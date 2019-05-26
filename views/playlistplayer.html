@@ -19,22 +19,10 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4 table-playlist">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <h6 class="card-subtitle mb-2 text-muted"></h6>
-            <p class="card-text">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Playlist</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
-            </p>
+        <div class="row">
+          <div class="col">
+            <h3>Lista files</h3>
+            <hr>
           </div>
         </div>
       </div>
@@ -43,9 +31,9 @@
           <div class="col">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title"></h5>
+                <h5 class="card-title" id="videoTitle"></h5>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
-                <video id="vpPLayer" placeinline="" controls autoplay class="main-player"></video>
+                <video id="vpPLayer" placeinline="1" controls autoplay class="main-player"></video>
               </div>
             </div>
           </div>
@@ -56,7 +44,26 @@
               <div class="card-body">
                 <h5 class="card-title">File</h5>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
-                <p class="card-text" id="txtFileName"></p>
+                <p class="card-text">
+                  <div class="form">
+                      <div class="form-group">
+                        <div class="form-inline">
+                            <label for="txtFileName">Nome: </label>
+                            <div id="txtFileName" class="col"></div>
+                        </div>
+                         
+                          
+                      </div>
+                      <div class="form-group">
+                          <div class="form-inline">
+                          <label for="txtDuration">Durata: </label>
+                          <div id="txtDuration" class="col"></div>
+                          </div>
+
+                      </div>
+                  </div>
+                  
+                </p>
                 <a href="javascript:;" id="btnPrev" class="card-link btn btn-primary">Prev</a>
                 <a href="javascript:;" id="btnNext" class="card-link btn btn-primary">Next</a>
               </div>
@@ -68,7 +75,7 @@
     <div class="row">
       <div class="col max-height">
         <footer>
-            <div class="text-center">@Copyright Luciano Grippa 2019 versione <span id="versionSpan"></span></div>
+          <div class="text-center">@Copyright Luciano Grippa 2019 versione <span id="versionSpan"></span></div>
         </footer>
       </div>
     </div>

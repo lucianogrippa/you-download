@@ -12,6 +12,8 @@ class MainForm extends BrowserWindow {
     }) {
         super(options);
         this.loadFile("views/main.html");
+        this.setMenuBarVisibility(false);
+        this.setMenu(null);
     }
 
     openDevTools() {

@@ -120,16 +120,22 @@ class MainController {
     let btnConvertM4a = document.querySelector("#btnConvertM4a");
     let btnConvertAAC = document.querySelector("#btnConvertAAC");
     let btnConvertMp4 = document.querySelector("#btnConvertMp4");
+    let btnPath = document.querySelector("#btnPath");
+    let btnPlayer = document.querySelector("#btnPlayer");
     if (!enable) {
       btnConvert.setAttribute("disabled", "");
       btnConvertM4a.setAttribute("disabled", "");
       btnConvertAAC.setAttribute("disabled", "");
       btnConvertMp4.setAttribute("disabled", "");
+      btnPath.setAttribute("disabled", "");
+      btnPlayer.setAttribute("disabled", "");
     } else {
       btnConvert.removeAttribute("disabled");
       btnConvertM4a.removeAttribute("disabled");
       btnConvertAAC.removeAttribute("disabled");
       btnConvertMp4.removeAttribute("disabled");
+      btnPath.removeAttribute("disabled");
+      btnPlayer.removeAttribute("disabled");
     }
   }
   urlChange(event) {
@@ -156,6 +162,7 @@ class MainController {
       let lblDirPath = document.querySelector("#lblDirPath");
       lblDirPath.innerHTML = dirName[0];
       this.destinationPath = dirName[0];
+      ipcRenderer.send("change-playlist-async",this.destinationPath);
     }
   }
   selectDirectory() {
@@ -298,6 +305,7 @@ class MainController {
             Log.info(this.outupuFormat + " conversion ok");
             try {
               fs.unlinkSync(destinationFile);
+              ipcRenderer.send("change-playlist-async",this.destinationPath);
             } catch (er) {
               console.log(er);
               Log.error(er);
@@ -316,6 +324,7 @@ class MainController {
           Log.info("fine");
           this.writeInfoBox("processo completato");
           this.enableButtons(true);
+          ipcRenderer.send("change-playlist-async",this.destinationPath);
         }
       } catch (e) {
         console.log(e);
