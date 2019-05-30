@@ -1,6 +1,6 @@
 {
   "name": "you-download",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Download video from youtube and converts in differtents formats",
   "main": "main.js",
   "scripts": {
@@ -29,12 +29,12 @@
   "author": "Luciano Grippa",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^5.0.0",
+    "electron": "^5.0.2",
     "electron-builder": "^20.40.2"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.17",
-    "@microlink/youtube-dl": "^1.13.3",
+    "@microlink/youtube-dl": "^1.13.5",
     "bootstrap": "^4.3.1",
     "datatables.net-bs4": "^1.10.19",
     "electron-log": "^3.0.5",
