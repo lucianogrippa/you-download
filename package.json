@@ -22,8 +22,8 @@
     "mac": {
       "category": "editing"
     },
-    "directories":{
-      "buildResources":"build"
+    "directories": {
+      "buildResources": "build"
     }
   },
   "author": "Luciano Grippa",
@@ -43,6 +43,7 @@
     "glyphicons-only-bootstrap": "^1.0.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
+    "youtube-dl": "^2.0.0",
     "youtube-dl-ffmpeg-ffprobe-static": "^1.2.1",
     "youtube-player": "^5.5.2"
   }

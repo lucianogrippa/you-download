@@ -1,11 +1,11 @@
 const YTPlayer = require('youtube-player');
 const ffmpeg = require('fluent-ffmpeg');
-const youtubedl = require('@microlink/youtube-dl');
 const Url = require('url');
 const fs = require("fs");
 const path = require("path");
 let youtubePath = require("youtube-dl-ffmpeg-ffprobe-static").path;
 let ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const youtubedl = require('youtube-dl');
 const {
   ipcRenderer
 } = require('electron');
@@ -37,6 +37,10 @@ class MainController {
 
     if (youtubePath == null || youtubePath == '') {
       alert("Attenzione: devi installare youtube-dl");
+    }
+    else
+    {
+      youtubedl.setYtdlBinary(youtubePath);
     }
 
     Log.info(FFMPEG_PATH);
