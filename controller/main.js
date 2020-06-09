@@ -5,7 +5,12 @@ const fs = require("fs");
 const path = require("path");
 let youtubePath = require("youtube-dl-ffmpeg-ffprobe-static").path;
 let ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-const youtubedl = require('youtube-dl');
+var youtubedl = {};
+if (process.platform === 'darwin')
+  youtubedl = require('@microlink/youtube-dl');
+else
+  youtubedl = require('youtube-dl');
+
 const {
   ipcRenderer
 } = require('electron');
@@ -37,9 +42,7 @@ class MainController {
 
     if (youtubePath == null || youtubePath == '') {
       alert("Attenzione: devi installare youtube-dl");
-    }
-    else
-    {
+    } else if (process.platform !== 'darwin') {
       youtubedl.setYtdlBinary(youtubePath);
     }
 
@@ -52,7 +55,8 @@ class MainController {
     if (playerContainer) {
       let id = playerContainer.id;
       this.player = new YTPlayer(id, {
-        videoId: 'M7lc1UVf-VE'
+        videoId: 'M7lc1UVf-VE',
+        host: 'https://www.youtube.com'
       });
     }
     /// default cartella musica
@@ -166,7 +170,7 @@ class MainController {
       let lblDirPath = document.querySelector("#lblDirPath");
       lblDirPath.innerHTML = dirName[0];
       this.destinationPath = dirName[0];
-      ipcRenderer.send("change-playlist-async",this.destinationPath);
+      ipcRenderer.send("change-playlist-async", this.destinationPath);
     }
   }
   selectDirectory() {
@@ -309,7 +313,7 @@ class MainController {
             Log.info(this.outupuFormat + " conversion ok");
             try {
               fs.unlinkSync(destinationFile);
-              ipcRenderer.send("change-playlist-async",this.destinationPath);
+              ipcRenderer.send("change-playlist-async", this.destinationPath);
             } catch (er) {
               console.log(er);
               Log.error(er);
@@ -328,7 +332,7 @@ class MainController {
           Log.info("fine");
           this.writeInfoBox("processo completato");
           this.enableButtons(true);
-          ipcRenderer.send("change-playlist-async",this.destinationPath);
+          ipcRenderer.send("change-playlist-async", this.destinationPath);
         }
       } catch (e) {
         console.log(e);
