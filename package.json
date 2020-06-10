@@ -1,7 +1,7 @@
 {
   "name": "you-download",
   "version": "1.1.5",
-  "description": "Download video from youtube and converts in differtents formats",
+  "description": "Utility that allow download video from youtube and converts in differents formats",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -9,7 +9,7 @@
     "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
-  "repository": "",
+  "repository": "https://gitlab.com/l.grippa/you-download.git",
   "keywords": [
     "Electron",
     "quick",
@@ -21,21 +21,24 @@
   "build": {
     "appId": "com.grippaweb.youdownload",
     "mac": {
-      "category": "editing"
+      "category": "editing",
+      "target": [
+        "dmg"
+      ]
     },
     "linux": {
-      "category": "editing",
-      "icon":"./Icon.iconset/icon_256@2x.png",
+      "icon": "./Icon.iconset/icon_256@2x.png",
       "target": [
         "snap",
         "deb",
         "tar.gz"
       ]
     },
-    "win":{
-      "icon":"./Icon.iconset/icon_256@2x.png",
-      "target":[
-        "MSI","portable"
+    "win": {
+      "icon": "./Icon.iconset/icon_256@2x.png",
+      "target": [
+        "MSI",
+        "portable"
       ]
     },
     "directories": {
@@ -44,6 +47,9 @@
     }
   },
   "author": "Luciano Grippa",
+  "email": "grippa.luciano@gmail.com",
+  "url" : "https://gitlab.com/l.grippa/you-download.git",
+  "homepage":"https://gitlab.com/l.grippa/you-download/-/blob/master/README.md",
   "license": "MIT",
   "devDependencies": {
     "electron": "^9.0.3",

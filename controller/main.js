@@ -11,10 +11,6 @@ if (process.platform === 'darwin')
 else
   youtubedl = require('youtube-dl');
 
-if (process.platform === 'linux') {
-  youtubedl.setYtdlBinary("/usr/bin/youtube-dl");
-}
-
 const {
   ipcRenderer
 } = require('electron');

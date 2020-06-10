@@ -168,14 +168,20 @@ ipcMain.on('change-playlist-async', (event, arg) => {
 ipcMain.on('open-playlist-async', (event, arg) => {
   // apri solo se null
   if (playListWnd == null) {
-    playListWnd = new PlayListForm({
+    let playlistFormConfig ={
       width: 800,
       height: 600,
-      icon: iconUrl,
       webPreferences: {
         nodeIntegration: true
       }
-    });
+    };
+
+    if(showAppIcon){
+      playlistFormConfig.icon = iconUrl;
+    }
+  
+    playListWnd = new PlayListForm(playlistFormConfig);
+    
     playListWnd.setDebug(debug);
     playListWnd.setPlaylistPath(arg);
     playListWnd.on('closed', function () {
