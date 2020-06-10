@@ -32,10 +32,15 @@
         "tar.gz"
       ]
     },
+    "win":{
+      "icon":"./Icon.iconset/icon_256@2x.png",
+      "target":[
+        "MSI","portable"
+      ]
+    },
     "directories": {
       "buildResources": "./build",
-      "output": "./dist",
-      "app": "./"
+      "output": "./dist"
     }
   },
   "author": "Luciano Grippa",
