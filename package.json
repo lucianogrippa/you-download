@@ -1,6 +1,6 @@
 {
   "name": "you-download",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "Utility that allow download video from youtube and converts in differents formats",
   "main": "main.js",
   "scripts": {
@@ -29,8 +29,7 @@
     "linux": {
       "icon": "./Icon.iconset/icon_256@2x.png",
       "target": [
-        "snap",
-        "deb",
+        "dir",
         "tar.gz"
       ]
     },
@@ -48,8 +47,8 @@
   },
   "author": "Luciano Grippa",
   "email": "grippa.luciano@gmail.com",
-  "url" : "https://gitlab.com/l.grippa/you-download.git",
-  "homepage":"https://gitlab.com/l.grippa/you-download/-/blob/master/README.md",
+  "url": "https://gitlab.com/l.grippa/you-download.git",
+  "homepage": "https://gitlab.com/l.grippa/you-download/-/blob/master/README.md",
   "license": "MIT",
   "devDependencies": {
     "electron": "^9.0.3",
