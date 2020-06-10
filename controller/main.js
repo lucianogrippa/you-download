@@ -11,6 +11,10 @@ if (process.platform === 'darwin')
 else
   youtubedl = require('youtube-dl');
 
+if (process.platform === 'linux') {
+  youtubedl.setYtdlBinary("/usr/bin/youtube-dl");
+}
+
 const {
   ipcRenderer
 } = require('electron');
@@ -119,9 +123,9 @@ class MainController {
       }
     });
   }
-  writeInfoBox(info) {
+  writeInfoBox(info,iserror) {
     let lblInfoBox = document.querySelector("#lblInfoBox");
-    lblInfoBox.innerHTML = info;
+    lblInfoBox.innerHTML = iserror? "<b style='color:red'>"+info+"</b>":info;
   }
   enableButtons(enable) {
     let btnConvert = document.querySelector("#btnConvert");
@@ -209,7 +213,7 @@ class MainController {
     this.writeInfoBox("connecting " + ytUrl);
     let video = youtubedl(ytUrl,
       // Optional arguments passed to youtube-dl.
-      ['--format=18', '--no-check-certificate'],
+      ['-i', '--format=18', '--no-check-certificate'],
       // Additional options can be given for calling `child_process.execFile()`.
       {
         cwd: pathName
@@ -249,6 +253,11 @@ class MainController {
       this.enableButtons(true);
     });
 
+    video.on('error', (err) => {
+      this.writeInfoBox("errore conversione: "+err.message,true);
+      Log.error("Errore: "+err.message);
+      this.enableButtons(true);
+    });
     video.on('end', () => {
       this.enableButtons(false);
       console.log('finished downloading!');
@@ -280,7 +289,7 @@ class MainController {
             if (fs.existsSync(outfile)) {
               fs.unlinkSync(outfile);
             }
-          } catch (err) {}
+          } catch (err) { }
           var process = new ffmpeg();
           process.input(destinationFile);
           process.output(outfile);

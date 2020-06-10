@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "repository": "",
   "keywords": [
@@ -22,28 +23,39 @@
     "mac": {
       "category": "editing"
     },
+    "linux": {
+      "category": "editing",
+      "icon":"./Icon.iconset/icon_256@2x.png",
+      "target": [
+        "snap",
+        "deb",
+        "tar.gz"
+      ]
+    },
     "directories": {
-      "buildResources": "build"
+      "buildResources": "./build",
+      "output": "./dist",
+      "app": "./"
     }
   },
   "author": "Luciano Grippa",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^5.0.2",
-    "electron-builder": "^20.40.2"
+    "electron": "^9.0.3",
+    "electron-builder": "^22.7.0"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.17",
-    "@microlink/youtube-dl": "^1.13.5",
-    "bootstrap": "^4.3.1",
-    "datatables.net-bs4": "^1.10.19",
-    "electron-log": "^3.0.5",
+    "@microlink/youtube-dl": "^2.0.0",
+    "bootstrap": "^4.5.0",
+    "datatables.net-bs4": "^1.10.21",
+    "electron-log": "^4.2.1",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "glyphicons-only-bootstrap": "^1.0.1",
-    "jquery": "^3.4.1",
-    "popper.js": "^1.15.0",
-    "youtube-dl": "^2.0.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "youtube-dl": "^3.0.2",
     "youtube-dl-ffmpeg-ffprobe-static": "^1.2.1",
     "youtube-player": "^5.5.2"
   }
