@@ -14,17 +14,31 @@ const {
 
 const path = require('path');
 const fs = require('fs');
-
+const os = require("os");
 // const log = require('electron-log');
 const dialog = app.dialog;
-const homeDir = require("os").homedir();
+const homeDir = os.homedir();
 const url = require('url');
-
-const iconUrl = url.format({
-  pathname: path.join(__dirname, 'Icon.icns'),
-  protocol: 'file:',
-  slashes: true
-});
+let iconPath = path.join(__dirname, 'Icon.icns');
+let iconUrl;
+let showAppIcon=false;
+if (process.platform === "darvin") {
+   iconUrl = url.format({
+    pathname: iconPath,
+    protocol: 'file:',
+    slashes: true
+  });
+  showAppIcon=true;
+}
+else
+{
+   iconPath = path.join(__dirname, 'icon.png');
+   iconUrl = url.format({
+    pathname: iconPath,
+    protocol: 'file:',
+    slashes: true
+  });
+}
 
 let logPath = path.join(homeDir, 'Documents');
 if (!fs.existsSync(logPath)) {
@@ -47,14 +61,18 @@ let playListWnd;
  * Crea il form principale
  */
 function createMainForm() {
-  mainWindow = new MainForm({
+  let formConfig = {
     width: 800,
     height: 600,
-    icon: iconUrl,
     webPreferences: {
       nodeIntegration: true
     }
-  });
+  };
+
+  if(showAppIcon){
+    formConfig.icon = iconUrl;
+  }
+  mainWindow = new MainForm(formConfig);
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
@@ -84,55 +102,55 @@ app.on('activate', function () {
 var template = [{
   label: "You Download",
   submenu: [{
-      label: "About You Download",
-      selector: "orderFrontStandardAboutPanel:"
-    },
-    {
-      type: "separator"
-    },
-    {
-      label: "Quit",
-      accelerator: "Command+Q",
-      click: function () {
-        app.quit();
-      }
+    label: "About You Download",
+    selector: "orderFrontStandardAboutPanel:"
+  },
+  {
+    type: "separator"
+  },
+  {
+    label: "Quit",
+    accelerator: "Command+Q",
+    click: function () {
+      app.quit();
     }
+  }
   ]
 }, {
   label: "Edit",
   submenu: [{
-      label: "Undo",
-      accelerator: "CmdOrCtrl+Z",
-      selector: "undo:"
-    },
-    {
-      label: "Redo",
-      accelerator: "Shift+CmdOrCtrl+Z",
-      selector: "redo:"
-    },
-    {
-      type: "separator"
-    },
-    {
-      label: "Cut",
-      accelerator: "CmdOrCtrl+X",
-      selector: "cut:"
-    },
-    {
-      label: "Copy",
-      accelerator: "CmdOrCtrl+C",
-      selector: "copy:"
-    },
-    {
-      label: "Paste",
-      accelerator: "CmdOrCtrl+V",
-      selector: "paste:"
-    },
-    {
-      label: "Select All",
-      accelerator: "CmdOrCtrl+A",
-      selector: "selectAll:"
-    }
+    label: "Undo",
+    accelerator: "CmdOrCtrl+Z",
+    selector: "undo:"
+  },
+  {
+    label: "Redo",
+    accelerator: "Shift+CmdOrCtrl+Z",
+    selector: "redo:"
+  },
+  {
+    type: "separator"
+  },
+  {
+    label: "Cut",
+    accelerator: "CmdOrCtrl+X",
+    selector: "cut:"
+  },
+  {
+    label: "Copy",
+    accelerator: "CmdOrCtrl+C",
+    selector: "copy:"
+  },
+  {
+    label: "Paste",
+    accelerator: "CmdOrCtrl+V",
+    selector: "paste:"
+  },
+  {
+    label: "Select All",
+    accelerator: "CmdOrCtrl+A",
+    selector: "selectAll:"
+  }
   ]
 }];
 
@@ -150,14 +168,20 @@ ipcMain.on('change-playlist-async', (event, arg) => {
 ipcMain.on('open-playlist-async', (event, arg) => {
   // apri solo se null
   if (playListWnd == null) {
-    playListWnd = new PlayListForm({
+    let playlistFormConfig ={
       width: 800,
       height: 600,
-      icon: iconUrl,
       webPreferences: {
         nodeIntegration: true
       }
-    });
+    };
+
+    if(showAppIcon){
+      playlistFormConfig.icon = iconUrl;
+    }
+  
+    playListWnd = new PlayListForm(playlistFormConfig);
+    
     playListWnd.setDebug(debug);
     playListWnd.setPlaylistPath(arg);
     playListWnd.on('closed', function () {
