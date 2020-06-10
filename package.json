@@ -52,28 +52,12 @@
   "homepage":"https://gitlab.com/l.grippa/you-download/-/blob/master/README.md",
   "license": "MIT",
   "devDependencies": {
-<<<<<<< HEAD
-    "electron": "^7.1.10",
-    "electron-builder": "^22.3.2"
-=======
     "electron": "^9.0.3",
     "electron-builder": "^22.7.0"
->>>>>>> develop
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.17",
     "@microlink/youtube-dl": "^2.0.0",
-<<<<<<< HEAD
-    "bootstrap": "^4.3.1",
-    "datatables.net-bs4": "^1.10.19",
-    "electron-log": "^4.0.4",
-    "ffmpeg": "0.0.4",
-    "fluent-ffmpeg": "^2.1.2",
-    "glyphicons-only-bootstrap": "^1.0.1",
-    "jquery": "^3.4.1",
-    "popper.js": "^1.15.0",
-    "youtube-dl": "^3.0.1",
-=======
     "bootstrap": "^4.5.0",
     "datatables.net-bs4": "^1.10.21",
     "electron-log": "^4.2.1",
@@ -83,7 +67,6 @@
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "youtube-dl": "^3.0.2",
->>>>>>> develop
     "youtube-dl-ffmpeg-ffprobe-static": "^1.2.1",
     "youtube-player": "^5.5.2"
   }
