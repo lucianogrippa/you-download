@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 // Modules to control application life and create native browser window
 const {
   Menu,

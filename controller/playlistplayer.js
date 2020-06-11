@@ -45,6 +45,7 @@ $(document).ready(() => {
 function loadSrc(firstMedia) {
     if (!!firstMedia) {
         player.setAttribute("src", firstMedia.path);
+        $("#txtFileName").attr("title",firstMedia.name);
         $("#txtFileName").html(firstMedia.name);
         let type = firstMedia.name.endsWith(".mp4") ? "video" : "audio";
         $("#videoTitle").html(formatTitle(firstMedia.name) + "   (" + type + " " + getExt(firstMedia.name) + ")");

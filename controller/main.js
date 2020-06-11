@@ -6,7 +6,7 @@ const path = require("path");
 let youtubePath = require("youtube-dl-ffmpeg-ffprobe-static").path;
 let ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 var youtubedl = {};
-if (process.platform === 'darwin')
+if (process.platform === 'darwin' || process.platform=='linux')
   youtubedl = require('@microlink/youtube-dl');
 else
   youtubedl = require('youtube-dl');
@@ -42,7 +42,7 @@ class MainController {
 
     if (youtubePath == null || youtubePath == '') {
       alert("Attenzione: devi installare youtube-dl");
-    } else if (process.platform !== 'darwin') {
+    } else if (process.platform !== 'darwin' || process.platform !== 'linux') {
       youtubedl.setYtdlBinary(youtubePath);
     }
 

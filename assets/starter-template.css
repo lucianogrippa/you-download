@@ -55,3 +55,8 @@ footer {
 .active {
   background-color: #96969637;
 }
+
+.limt-label {
+  max-width: 400px ;
+  overflow: hidden;
+}

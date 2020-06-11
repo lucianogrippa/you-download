@@ -1,6 +1,6 @@
 {
   "name": "you-download",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Utility that allow download video from youtube and converts in differents formats",
   "main": "main.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "linux": {
       "icon": "./Icon.iconset/icon_256@2x.png",
       "target": [
+        "AppImage",
         "tar.gz"
       ]
     },
@@ -40,8 +41,7 @@
       ]
     },
     "directories": {
-      "buildResources": "./build",
-      "output": "./dist"
+      "buildResources": "./build"
     }
   },
   "author": "Luciano Grippa",
