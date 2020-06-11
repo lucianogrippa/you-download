@@ -1,6 +1,6 @@
 {
   "name": "you-download",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Utility that allow download video from youtube and converts in differents formats",
   "main": "main.js",
   "scripts": {
