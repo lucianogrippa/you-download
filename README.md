@@ -1,8 +1,8 @@
 # You Download
 
 <p>
-    This project is a GUI interface for extract audio tracks from video url.
-   In current release just YouTube video, but for the future i'm planning to allow download from Hls playlist, Dash manifest and mp4 urls.
+   This project is a GUI interface that uses ffmpeg and youtube-dl application for extract audio tracks from video url.
+   In current release is allowed for source just YouTube videos.
 </p>
 
 ![program interface](docs/you-download.png)
