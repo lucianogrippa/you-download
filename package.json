@@ -28,7 +28,7 @@
     },
     "linux": {
       "icon": "./Icon.iconset/icon_256@2x.png",
-      "category":"editing",
+      "category": "editing",
       "target": [
         "AppImage",
         "tar.gz"
