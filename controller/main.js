@@ -6,10 +6,10 @@ const path = require("path");
 let youtubePath = require("youtube-dl-ffmpeg-ffprobe-static").path;
 let ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 var youtubedl = {};
-if (process.platform === 'darwin' || process.platform=='linux')
+// if (process.platform === 'darwin' || process.platform=='linux')
+//   youtubedl = require('@microlink/youtube-dl');
+// else
   youtubedl = require('@microlink/youtube-dl');
-else
-  youtubedl = require('youtube-dl');
 
 const {
   ipcRenderer
@@ -40,11 +40,11 @@ class MainController {
       FFMPEG_PATH = ffmpegPath.replace('app.asar', 'app.asar.unpacked');
     }
 
-    if (youtubePath == null || youtubePath == '') {
-      alert("Attenzione: devi installare youtube-dl");
-    } else if (process.platform !== 'darwin' || process.platform !== 'linux') {
-      youtubedl.setYtdlBinary(youtubePath);
-    }
+    // if (youtubePath == null || youtubePath == '') {
+    //   alert("Attenzione: devi installare youtube-dl");
+    // } else if (process.platform !== 'darwin' || process.platform !== 'linux') {
+    //   youtubedl.setYtdlBinary(youtubePath);
+    // }
 
     Log.info(FFMPEG_PATH);
 
