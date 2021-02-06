@@ -1,5 +1,7 @@
-const debug = true;
-// Modules to control application life and create native browser window
+delete process.env.ELECTRON_ENABLE_SECURITY_WARNINGS;
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
+
+const debug = process.env.NODE_ENV === 'dev';
 const {
   Menu,
   app,
@@ -62,10 +64,11 @@ let playListWnd;
  */
 function createMainForm() {
   let formConfig = {
-    width: 800,
+    width: 1200,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true
     }
   };
 
