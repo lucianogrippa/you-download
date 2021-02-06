@@ -8,8 +8,12 @@
   <meta name="author" content="">
   <link rel="icon" href="../assets/icons/favicon.ico">
   <title>You download</title>
+  <!-- videojs -->
+  <link rel="stylesheet" href="../node_modules/video.js/dist/video-js.min.css" />
+
   <!-- Bootstrap core CSS -->
   <link href="../assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+
 
   <!-- Custom styles for this template -->
   <link href="../assets/starter-template.css" rel="stylesheet">
@@ -19,38 +23,59 @@
   <main role="main" class="container">
     <div class="row">
       <div class="col-md-6">
-        <h1>You Download</h1>
-        <p class="lead">Incolla un link youtube.<br>Segli un nome da associare al file <br> Scegli una directory di
-          destinazione <br> Fai clicca su crea mp3</p>
+        <div class="jumbotron">
+          <div class="callout callout-info">
+            <div class="callout-heading">
+              <h1>You Download</h1>
+            </div>
+            <div class="callout-body">
+              <p class="lead main-lead">Paste a youtube link (use CTRL+V key combination).<br>Choose a name to associate
+                with the file (you can use the "Select Title" button) <br> Choose a directory of
+                destination (by default the Music directory is selected) <br> Click on download mp3 or m4a or other
+                available format.</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-md-6">
-        <div id="ytplayer" class="yt-player"></div>
+        <div class="jumbotron">
+          <div class="callout-heading">
+            <h4 id="txt-title-info"></h4>
+          </div>
+          <div class="callout-body">
+            <div id="plContainer"></div>
+          </div>
+        </div>
+
+        <!-- <video id="ytplayer" controls preload="auto" class="vjs-matrix video-js" ></video> -->
       </div>
     </div>
     <div class="row">
       <div class="col-md-12 form">
         <div class="form-group">
-          <label for="txtUrl">Incolla link video Youtube</label>
+          <label for="txtUrl">Paste a youtube link</label>
           <div class="form-inline">
-            <input type="url" class="form-control col" id="txtUrl" prompt="Incolla link Youtube" />
-            <label for="nmnStart">&nbsp; Inizia da (sec): &nbsp;</label>
-            <input type="number" class="form-control col-md-2" id="nmnStart" prompt="Inizio" step="0.1" value="0" />
+            <input type="url" class="form-control col" id="txtUrl" prompt="CTRL+V paste link here" />
+            <label for="nmnStart">&nbsp; Start from (sec): &nbsp;</label>
+            <input type="number" class="form-control col-md-2" id="nmnStart" prompt="Start time in seconds" step="0.1"
+              value="0" />
             <input type="button" id="btnLoad" class="btn btn-primary" value="Play" />
           </div>
         </div>
         <div class="form-group">
-            <input type="button" class="btn btn-primary" id="btnPath" value="Seleziona Directory" />
-            <input type="button" class="btn btn-success" id="btnPlayer" value="Riproduci contenuto directory" />
-            <div id="lblDirPath" class="col"></div>
+          <button type="button" class="btn btn-danger" id="btnInfo"> Select title </button>
+          <input type="button" class="btn btn-primary" id="btnPath" value="Select folder" />
+          <input type="button" class="btn btn-success" id="btnPlayer" value="Play directory content" />
+          <div id="lblDirPath" class="col"></div>
         </div>
         <div class="form-group">
-          <label for="txtName">Nome file</label>
-          <input type="text" class="form-control" id="txtName" prompt="nome del file senza esenzione" />
+          <label for="txtName">File name</label>
+          <input type="text" class="form-control" id="txtName" prompt="filename without extension" />
         </div>
         <div class="form-group">
-          <input type="button" class="btn btn-primary" id="btnConvert" value="Crea MP3" />
-          <input type="button" class="btn btn-primary" id="btnConvertM4a" value="Crea M4a" />
-          <input type="button" class="btn btn-primary" id="btnConvertAAC" value="Crea AAC" />
+          <input type="button" class="btn btn-primary" id="btnConvert" value="Download MP3" />
+          <input type="button" class="btn btn-primary" id="btnConvertM4a" value="Download M4a" />
+          <input type="button" class="btn btn-primary" id="btnConvertAAC" value="Download AAC" />
           <input type="button" class="btn btn-primary" id="btnConvertMp4" value="Download Mp4" />
           <div id="lblInfoBox" class="info-box"></div>
         </div>
@@ -58,8 +83,10 @@
     </div>
   </main><!-- /.container -->
   <footer>
-    <div class="text-center">@Copyright Luciano Grippa 2019 versione <span id="versionSpan"></span></div>
+    <div class="text-center">@Copyright Luciano Grippa 2019 version <span id="versionSpan"></span></div>
   </footer>
+  <script src="../node_modules/video.js/dist/video.min.js"></script>
+  <script src="../node_modules/videojs-youtube/dist/Youtube.min.js"></script>
   <script src="../assets/bootstrap/jquery.min.js"></script>
   <script src="../assets/bootstrap/popper.min.js"></script>
   <script src="../assets/bootstrap/bootstrap.min.js"></script>
