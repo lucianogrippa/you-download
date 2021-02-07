@@ -1,13 +1,15 @@
 {
   "name": "you-download",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Utility that allow download video from youtube and converts in differents formats",
   "main": "main.js",
   "scripts": {
     "start": "NODE_ENV=dev electron .",
+    "start:win": "electron .",
     "start:prod": "NODE_ENV=prod electron .",
     "pack": "NODE_ENV=prod electron-builder --dir",
     "dist": "NODE_ENV=prod electron-builder",
+    "dist:win": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "repository": "https://gitlab.com/l.grippa/you-download.git",
