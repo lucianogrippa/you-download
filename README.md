@@ -39,7 +39,7 @@ After that you can call command:
 $ npm install
 ```
 
-The project require in system path two applications:
+For run project, it is required installing into the system path two applications:
 
  - [youtube-dl](https://github.com/ytdl-org/youtube-dl)
  - [ffmpg](https://github.com/FFmpeg/FFmpeg)
