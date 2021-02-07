@@ -5,9 +5,10 @@ const path = require("path");
 let youtubePath = require("youtube-dl-ffmpeg-ffprobe-static").path;
 let ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 var youtubedl = {};
-if (process.platform === "darwin" || process.platform == "linux")
-  youtubedl = require("@microlink/youtube-dl");
-else youtubedl = require("youtube-dl");
+youtubedl = require("@microlink/youtube-dl");
+// if (process.platform === "darwin" || process.platform == "linux")
+//   youtubedl = require("@microlink/youtube-dl");
+// else youtubedl = require("youtube-dl");
 
 const { ipcRenderer } = require("electron");
 const { Log } = require("../lib/Log");
@@ -31,13 +32,12 @@ class MainController {
     if (ffmpegPath == null || ffmpegPath == "") {
       alert("Warning: you should install ffmpeg");
     } else {
-      // solo su piattaforma mac
       FFMPEG_PATH = ffmpegPath.replace("app.asar", "app.asar.unpacked");
     }
 
     if (youtubePath == null || youtubePath == "") {
       alert("Warning: you should install youtube-dl");
-    } else if (process.platform !== "darwin" || process.platform !== "linux") {
+    } else /*if (process.platform !== "darwin" || process.platform !== "linux")*/ {
       youtubedl.setYtdlBinary(youtubePath);
     }
 
@@ -101,8 +101,12 @@ class MainController {
   loadInfo(videoUrl) {
     youtubedl.getInfo(videoUrl, (err, info) => {
       this.enableButtons(true);
-      if (err) throw err;
-
+      
+      if (err) { 
+        this.writeInfoBox(err);
+        alert(err);
+        throw err;
+      }
       console.log("id:", info.id);
       console.log("title:", info.title);
       console.log("url:", info.url);

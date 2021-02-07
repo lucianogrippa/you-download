@@ -7,9 +7,9 @@
     "start": "NODE_ENV=dev electron .",
     "start:win": "SET NODE_ENV=dev&& electron .",
     "start:prod": "NODE_ENV=prod electron .",
-    "start:prod-win": "SET NODE_ENV=prod&& NODE_ENV=prod electron .",
+    "start:prod-win": "SET NODE_ENV=prod&& electron .",
     "pack": "NODE_ENV=prod electron-builder --dir",
-    "pack:win": "SET NODE_ENV=prod&& electron-builder --dir",
+    "pack:win": "SET NODE_ENV=dev&& electron-builder --dir",
     "dist": "NODE_ENV=prod electron-builder",
     "dist:win": "SET NODE_ENV=prod&& electron-builder",
     "postinstall": "electron-builder install-app-deps"
